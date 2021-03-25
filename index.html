@@ -1,2 +1,34 @@
-<h1>Hello World</h1>
-<p>This is sub content lslslslslls</p>
+<form id="extraForm" enctype="multipart/form-data">
+	<label for="name">Name</label>
+	<input type="text" name="name" id="name">
+	<label for="photo">Photo</label>
+	<input type="file" name="photo" id="photo">
+	<button type="submit" id="submit">Send</button>
+</form>
+<div class="success" style="display: none;">We received your submission, thank you!</div> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    jQuery(document).ready(function($){
+		$('#extraForm').submit(function(e){
+			e.preventDefault();
+			var action = 'https://getform.io/f/93a52617-4520-44a7-95a0-dd1fe04e3856';
+			$.ajax({
+				type: 'POST',
+				url: action,
+				crossDomain: true,
+				data: new FormData(this),
+				dataType: 'json',
+				contentType: 'multipart/form-data',
+				processData: false,
+				contentType: false,
+				headers: {
+					"Accept": "application/json"
+				}
+			}).done(function(){
+				$('.success').show();
+			}).fail(function(){
+				console.log(error)
+			})
+		})
+    })
+</script>
